@@ -3,7 +3,9 @@ import Link from "next/link";
 import { Github } from "lucide-react";
 
 import { Container } from "@/components/container";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export function Footer() {
   return (
@@ -27,6 +29,8 @@ export function Footer() {
             >
               <Github className="size-4" />
             </Link>
+            <Separator orientation="vertical" />
+            <ThemeToggle />
           </div>
         </div>
       </Container>

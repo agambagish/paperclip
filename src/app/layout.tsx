@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 
+import { Providers } from "@/providers";
+
 import "./globals.css";
 
 const notoSans = Noto_Sans({
@@ -15,8 +17,10 @@ export const metadata: Metadata = {
 
 export default function ({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={notoSans.variable}>
-      <body className="antialiased">{children}</body>
+    <html lang="en" className={notoSans.variable} suppressHydrationWarning>
+      <body className="antialiased">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
