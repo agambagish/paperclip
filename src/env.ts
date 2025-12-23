@@ -7,11 +7,16 @@ export const env = createEnv({
   server: {
     DATABASE_URL: z.url(),
     NODE_ENV: z.enum(["development", "production"]).default("development"),
+    BETTER_AUTH_SECRET: z.string(),
   },
-  client: {},
+  client: {
+    NEXT_PUBLIC_BASE_URL: z.url(),
+  },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   },
   emptyStringAsUndefined: true,
   onValidationError: (issues) => {
