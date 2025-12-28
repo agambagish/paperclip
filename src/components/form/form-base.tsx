@@ -68,7 +68,7 @@ export function FormBase<T extends FieldValues>({
                 <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
                 <Link
                   href="/forgot-password"
-                  className="ml-auto text-sm underline-offset-4 hover:underline"
+                  className="ml-auto text-xs underline-offset-4 hover:underline"
                 >
                   Forgot your password?
                 </Link>
