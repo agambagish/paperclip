@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -18,7 +18,7 @@ import { signUpSchema } from "../validators/sign-up-schema";
 
 export function SignUpForm() {
   const form = useForm<SignUpSchema>({
-    resolver: zodResolver(signUpSchema),
+    resolver: standardSchemaResolver(signUpSchema),
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -35,7 +35,7 @@ export function SignUpForm() {
       },
       onSuccess: () => {
         form.reset();
-        toast.success("Your account has been created.");
+        toast.success("You have signed up.");
         // TODO: Trigger Verification
       },
     });

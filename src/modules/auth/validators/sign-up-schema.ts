@@ -1,4 +1,4 @@
-import z from "zod/v3";
+import z from "zod";
 
 import { PASSWORD_REGEX } from "../lib/constants";
 
