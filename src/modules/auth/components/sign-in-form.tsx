@@ -11,6 +11,7 @@ import { FormEmail } from "@/components/form/form-email";
 import { FormPassword } from "@/components/form/form-password";
 import { LoadingButton } from "@/components/loading-button";
 import { Field, FieldDescription, FieldGroup } from "@/components/ui/field";
+import { useVerifyEmail } from "@/hooks/use-verify-email";
 import { authClient } from "@/lib/auth/client";
 
 import type { SignInSchema } from "../validators/sign-in-schema";
@@ -18,6 +19,12 @@ import { signInSchema } from "../validators/sign-in-schema";
 
 export function SignInForm() {
   const router = useRouter();
+
+  const {
+    showVerifyEmailComponent,
+    triggerVerification,
+    renderVerificationComponentIfNeeded,
+  } = useVerifyEmail("sign-in");
 
   const form = useForm<SignInSchema>({
     resolver: standardSchemaResolver(signInSchema),
@@ -34,7 +41,7 @@ export function SignInForm() {
       onError: (ctx) => {
         toast.error(ctx.error.message);
         if (ctx.error.status === 403) {
-          // TODO: Trigger Verification
+          triggerVerification(values.email);
         }
       },
       onSuccess: () => {
@@ -47,11 +54,19 @@ export function SignInForm() {
 
   const { isSubmitting, isValid } = form.formState;
 
-  // TODO: Render Verification
+  if (showVerifyEmailComponent) {
+    return renderVerificationComponentIfNeeded();
+  }
 
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>
       <FieldGroup>
+        <div className="flex flex-col items-center gap-1 text-center">
+          <h1 className="font-bold text-2xl">Welcome back</h1>
+          <p className="text-balance text-muted-foreground text-sm">
+            Enter your email below to sign in to your account
+          </p>
+        </div>
         <FormEmail
           control={form.control}
           name="email"

@@ -11,12 +11,19 @@ import { FormInput } from "@/components/form/form-input";
 import { FormPassword } from "@/components/form/form-password";
 import { LoadingButton } from "@/components/loading-button";
 import { Field, FieldDescription, FieldGroup } from "@/components/ui/field";
+import { useVerifyEmail } from "@/hooks/use-verify-email";
 import { authClient } from "@/lib/auth/client";
 
 import type { SignUpSchema } from "../validators/sign-up-schema";
 import { signUpSchema } from "../validators/sign-up-schema";
 
 export function SignUpForm() {
+  const {
+    showVerifyEmailComponent,
+    triggerVerification,
+    renderVerificationComponentIfNeeded,
+  } = useVerifyEmail("sign-up");
+
   const form = useForm<SignUpSchema>({
     resolver: standardSchemaResolver(signUpSchema),
     mode: "onChange",
@@ -36,14 +43,16 @@ export function SignUpForm() {
       onSuccess: () => {
         form.reset();
         toast.success("You have signed up.");
-        // TODO: Trigger Verification
+        triggerVerification(values.email);
       },
     });
   }
 
   const { isSubmitting, isValid } = form.formState;
 
-  // TODO: Render Verification
+  if (showVerifyEmailComponent) {
+    return renderVerificationComponentIfNeeded();
+  }
 
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)}>
