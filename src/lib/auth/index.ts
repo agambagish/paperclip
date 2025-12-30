@@ -3,6 +3,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 
 import { db } from "@/db";
+import type { UserRole } from "@/db/schema/users";
 import { env } from "@/env";
 
 import { sendEmail } from "../email";
@@ -28,6 +29,14 @@ export const auth = betterAuth({
       });
     },
   },
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        input: false,
+      },
+    },
+  },
   rateLimit: {
     enabled: false,
   },
@@ -45,3 +54,7 @@ export const auth = betterAuth({
     cookiePrefix: "paperclip",
   },
 });
+
+export type User = typeof auth.$Infer.Session.user & {
+  role: UserRole;
+};
