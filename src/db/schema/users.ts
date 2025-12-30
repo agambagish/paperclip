@@ -25,4 +25,5 @@ export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
 }));
 
+export type User = typeof users.$inferSelect;
 export type UserRole = (typeof userRoleEnum.enumValues)[number];

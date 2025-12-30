@@ -15,3 +15,5 @@ export const verifications = pgTable(
   },
   (table) => [index().on(table.identifier)],
 );
+
+export type Verification = typeof verifications.$inferSelect;
