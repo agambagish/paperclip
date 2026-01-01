@@ -1,12 +1,19 @@
+import { cookies } from "next/headers";
 import Link from "next/link";
 
 import { Paperclip } from "lucide-react";
 
 import { Container } from "@/components/container";
+import { auth } from "@/lib/auth";
+import { UserButton } from "@/modules/auth/components/user-button";
 
 import { MainNav } from "./main-nav";
 
-export function Header() {
+export async function Header() {
+  const isSignedIn = (await cookies()).has(
+    `${auth.options.advanced.cookiePrefix}.session_token`,
+  );
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <Container paddingDirection="x">
@@ -22,7 +29,8 @@ export function Header() {
             </Link>
             <MainNav />
           </div>
-          {/* TODO: Add User Button & Cart Sheet */}
+          {/* TODO: Add Cart Sheet */}
+          <UserButton isSignedIn={isSignedIn} />
         </div>
       </Container>
     </header>
