@@ -7,6 +7,7 @@ export const categories = pgTable("categories", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   label: text().notNull().unique(),
   slug: text().notNull().unique(),
+  icon: text().notNull(),
 });
 
 export const categoriesRelations = relations(categories, ({ many }) => ({
