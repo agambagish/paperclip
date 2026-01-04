@@ -59,11 +59,11 @@ export function UserButton({ isSignedIn }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar className="size-7 cursor-pointer border-none">
+        <Avatar className="size-7 cursor-pointer after:hidden">
           <AvatarImage
             src={generateAvatarURL(ctx.user.name)}
             alt={ctx.user.name}
-            className=""
+            className="rounded-none"
           />
           <AvatarFallback>
             {ctx.user.name.charAt(0).toUpperCase()}
