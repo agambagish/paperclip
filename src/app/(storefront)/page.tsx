@@ -1,9 +1,5 @@
-import { Button } from "@/components/ui/button";
+import { HeroSection } from "@/modules/home/components/hero-section";
 
 export default function () {
-  return (
-    <div className="p-12">
-      <Button>Click Me!</Button>
-    </div>
-  );
+  return <HeroSection />;
 }
